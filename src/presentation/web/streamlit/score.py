@@ -38,7 +38,7 @@ def render():
         
     st.markdown("---")
 
-    if st.button("🚀 CLASIFICAR CANDIDATO Y EVALUAR HABITABILIDAD"):
+    if st.button(" CLASIFICAR CANDIDATO Y EVALUAR HABITABILIDAD"):
         
         # 2. SIMULACIÓN: Crear las 32 Features Totales
         # Usamos los 6 inputs y simulamos las 26 features derivadas con un valor por defecto (1.0)

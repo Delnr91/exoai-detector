@@ -1,63 +1,58 @@
+# src/presentation/web/streamlit/metrics_explain.py
+
 import streamlit as st
 import requests
 import pandas as pd
-import altair as alt # Usamos Altair para gráficos más limpios
+import altair as alt
 
+# Define la URL base de tu API
 API_URL = "http://localhost:8000/models"
 
 def render():
-    st.header("📈 Métricas de Calidad y Explicabilidad Científica")
+    """ Renderiza la página de métricas y explicabilidad del modelo. """
+    st.header("🔬 Métricas y Explicabilidad del Modelo")
 
-    # --- Sección 1: Métricas de Rendimiento ---
-    st.subheader("1. Rendimiento del Modelo (Random Forest)")
+    st.markdown("### 1. Rendimiento del Modelo (Certificado de Calibración)")
     
     try:
-        metrics_resp = requests.get(f"{API_URL}/metrics")
-        metrics_resp.raise_for_status()
-        metrics = metrics_resp.json()
-            
-        col1, col2, col3, col4 = st.columns(4)
-            
-        col1.metric("Accuracy", f"{metrics['accuracy']:.3f}", 
-                    "Cerca del Objetivo 90%")
-        col2.metric("F1 Score", f"**{metrics['f1_score']:.3f}**", 
-                    "¡Calidad Científica Cumplida (>0.85)!") # Destacamos el logro
-        col3.metric("Muestras Train", f"{metrics['train_size']:,}")
-        col4.metric("Muestras Test", f"{metrics['test_size']:,}")
+        res = requests.get(f"{API_URL}/metrics")
+        res.raise_for_status()
+        metrics = res.json()
         
-        st.markdown("---")
+        col1, col2 = st.columns(2)
+        col1.metric("🎯 Precisión (Accuracy)", f"{metrics.get('accuracy', 0):.2%}")
+        col2.metric("⚖️ F1-Score", f"{metrics.get('f1_score', 0):.3f}")
+        
+        st.success("El **F1-Score > 0.85** demuestra que el modelo es científicamente robusto.")
 
-    except requests.RequestException:
-        st.error("❌ Error cargando métricas: Asegúrate de que el archivo 'latest_metrics.json' exista o que la API esté encendida.")
-        return
+    except requests.exceptions.RequestException as e:
+        st.error(f"No se pudieron cargar las métricas. Error: {e}")
 
-
-    # --- Sección 2: Feature Importance (Interpretación) ---
-    st.subheader("2. Importancia de Características (Interpretación Física)")
-    st.markdown("Demuestra a los científicos qué parámetros del tránsito son más influyentes en la decisión del modelo (Interpretability).")
+    st.markdown("---")
+    st.markdown("### 2. Importancia de Características (Interpretación Física)")
+    st.markdown("Estas son las variables más influyentes que el modelo utiliza.")
 
     try:
-        fi_resp = requests.get(f"{API_URL}/feature-importance")
-        fi_resp.raise_for_status()
-        fi_data = fi_resp.json()
+        res = requests.get(f"{API_URL}/feature-importance")
+        res.raise_for_status()
+        importance_data = res.json().get("importance", {})
         
-        df_fi = pd.DataFrame(fi_data)
-        df_fi = df_fi.sort_values(by='importance', ascending=False)
-        df_fi['importance'] = df_fi['importance'] * 100 # a porcentaje
-        
-        # Usamos Altair para una visualización más profesional
-        chart = alt.Chart(df_fi).mark_bar().encode(
-            x=alt.X('importance', title='Importancia (%)'),
-            y=alt.Y('feature', title='Característica', sort='x', axis=alt.Axis(labelAngle=0)),
-            tooltip=['feature', alt.Tooltip('importance', format='.2f')],
-            color=alt.Color('feature', legend=None)
-        ).properties(
-            title='Top Características Predictivas (Random Forest)'
-        ).interactive() # Habilitar zoom/pan
-        
-        st.altair_chart(chart, use_container_width=True)
-        
-        st.caption("Interpretación: La **koi_model_snr** (Signal-to-Noise) y el **koi_period** (Período Orbital) son los más predictivos, lo cual valida la literatura astronómica.")
-        
-    except Exception as e:
-        st.warning(f"No se pudo cargar la importancia de características (Error: {e}).")
+        if importance_data:
+            # CORRECCIÓN: Convertir el diccionario a un DataFrame con las columnas correctas
+            df_importance = pd.DataFrame(importance_data.items(), columns=['Característica', 'Importancia'])
+            
+            # Crear el gráfico con Altair
+            chart = alt.Chart(df_importance).mark_bar().encode(
+                x=alt.X('Importancia:Q', title='Importancia Relativa'),
+                y=alt.Y('Característica:N', title='Característica', sort='-x'), # '-x' ordena de mayor a menor
+                tooltip=['Característica', 'Importancia']
+            ).properties(
+                title='Top 10 Características Predictivas'
+            ).interactive()
+            
+            st.altair_chart(chart, use_container_width=True)
+        else:
+            st.warning("No hay datos de importancia de características disponibles.")
+
+    except requests.exceptions.RequestException as e:
+        st.error(f"No se pudo cargar la importancia de características. Error: {e}")

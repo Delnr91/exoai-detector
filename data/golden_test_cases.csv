@@ -1,0 +1,4 @@
+case_name,koi_period,koi_duration,koi_depth,koi_impact,koi_prad,koi_model_snr,notes
+"KOI-961.01 (Exoplaneta Confirmado)",0.45,2.1,131.5,0.4,0.78,15.0,"Un exoplaneta real y conocido. El modelo DEBE acertar este."
+"Eclipsing Binary (Falso Positivo)",2.98,3.5,82000.0,0.8,15.0,2500.0,"Una estrella binaria que parece un planeta gigante. Un TEST DIFÍCIL para el modelo."
+"TESS Candidate (Potencialmente Habitable)",35.5,4.8,950.5,0.2,2.1,35.2,"Un candidato no confirmado con un radio interesante. El ESCENARIO DE DESCUBRIMIENTO."

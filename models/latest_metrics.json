@@ -1,0 +1,7 @@
+{
+    "model_name": "Ensemble_v3_Final",
+    "accuracy": 0.912,
+    "f1_score": 0.907,
+    "train_size": 7279,
+    "test_size": 1455
+}

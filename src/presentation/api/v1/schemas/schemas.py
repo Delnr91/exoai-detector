@@ -1,50 +1,40 @@
 # src/presentation/api/v1/schemas/schemas.py
 
-from pydantic import BaseModel
-from typing import List, Optional
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any
 
 # --- Modelos de Predicción ---
 
 class PredictRequest(BaseModel):
     """
     Schema para la entrada de datos a la API de predicción.
-    Debe coincidir con las 6 features esperadas por el modelo.
+    Acepta un diccionario de features para ser más robusto y explícito.
     """
-    features: List[float] # koi_period, koi_impact, koi_duration, koi_depth, koi_prad, koi_model_snr
+    features: Dict[str, float] = Field(..., example={
+        "koi_period": 85.5, "koi_impact": 0.146, "koi_duration": 4.5, 
+        "koi_depth": 874.8, "koi_prad": 2.26, "koi_model_snr": 25.8,
+        # ... y así sucesivamente para las 32 features
+    })
 
 class PredictResponse(BaseModel):
     """
-    Schema para la salida de la API de predicción.
+    Schema para la salida de la API de predicción, enriquecido para el pitch.
     """
-    prediction: int       # 0 o 1
-    confidence: float     # Probabilidad de ser exoplaneta
-    model_name: str       # 'RandomForest_v1'
-    is_potentially_habitable: bool  # Nuevo campo para indicar habitabilidad
-
-
-# --- Modelos de Métricas y Entrenamiento ---
+    prediction_label: str = Field(..., example="Exoplaneta Confirmado")
+    confidence_score: float = Field(..., example=0.95)
+    prediction_value: int = Field(..., example=1)
+    model_version: str = Field("Ensemble_v3_Final", example="Ensemble_v3_Final")
+    is_potentially_habitable: bool = Field(False, example=False) # Lógica de dominio
+    
+# --- Modelos de Métricas y Explicabilidad ---
 
 class MetricsResponse(BaseModel):
-    """
-    Schema para reportar las métricas de rendimiento del modelo.
-    """
+    """ Schema para reportar las métricas de rendimiento del modelo. """
     accuracy: float
     f1_score: float
     train_size: int
     test_size: int
     
-    # Podemos agregar más métricas si son pre-calculadas
-    precision: Optional[float] = None
-    recall: Optional[float] = None
-
-
 class FeatureImportanceResponse(BaseModel):
-    """
-    Schema para reportar la importancia de características.
-    """
-    feature: str
-    importance: float
-    
-    class Config:
-        # Permite retornar una lista de objetos FeatureImportanceResponse
-        from_attributes = True
+    """ Schema para reportar la importancia de características. """
+    importance: Dict[str, float]

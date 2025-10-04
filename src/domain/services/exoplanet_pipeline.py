@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import logging
 import os
-from src.domain.services.pipeline_modules.data_cleaner import DataCleaner
-from src.domain.services.pipeline_modules.feature_creator import FeatureCreator
-from src.domain.services.pipeline_modules.data_finalizer import DataFinalizer
+from src.domain.pipeline_modules.data_cleaner import DataCleaner
+from src.domain.pipeline_modules.feature_creator import FeatureCreator
+from src.domain.pipeline_modules.data_finalizer import DataFinalizer
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
