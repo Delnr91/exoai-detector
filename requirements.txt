@@ -1,0 +1,24 @@
+#Librerias Core Data Science / ML
+pandas
+numpy
+scikit-learn
+#Para la 1D CNN
+tensorflow 
+
+# Librería para datos astronómicos (LightCurves)
+lightkurve 
+astropy
+
+# API / Backend
+fastapi
+# Servidor asíncrono
+uvicorn[standard] 
+
+# Frontend/Dashboard
+streamlit
+
+# Utilidades
+# Para Schemas (DTOs) en FastAPI
+pydantic
+# Para manejar variables de entorno (config)
+python-dotenv 
