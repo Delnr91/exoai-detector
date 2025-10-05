@@ -1,5 +1,3 @@
-# src/application/use_cases/train_model_use_case.py
-
 import pandas as pd
 import numpy as np
 import logging

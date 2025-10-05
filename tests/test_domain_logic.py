@@ -1,11 +1,10 @@
-# tests/test_domain_logic.py
-
 import pytest
 from src.domain.entities.exoplanet import Exoplanet
 from src.domain.exceptions.exceptions import ExoplanetDomainError
 
 def test_exoplanet_is_potentially_habitable_success():
     """Prueba que un planeta en zona habitable (DDD) se clasifique como tal."""
+
     # Parámetros: Radio 1.5 R_Earth (OK), Temp 290K (OK), Confianza 91.20% (OK)
     exo = Exoplanet(
         kepid="TEST-01",
@@ -18,6 +17,7 @@ def test_exoplanet_is_potentially_habitable_success():
 
 def test_exoplanet_is_not_habitable_low_confidence():
     """Prueba que falle por baja confianza del modelo."""
+    
     # Baja Confianza (0.70)
     exo = Exoplanet(
         kepid="TEST-02",

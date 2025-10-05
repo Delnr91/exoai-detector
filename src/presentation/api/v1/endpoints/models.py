@@ -1,5 +1,3 @@
-# src/presentation/api/v1/endpoints/models.py
-
 from fastapi import APIRouter, HTTPException
 from typing import Dict, Any
 import logging

@@ -1,6 +1,3 @@
-# scripts/retrain_model.sh (Ejemplo de script de producción)
-
-#!/bin/bash
 # Script de CI/CD: Automatiza el reentrenamiento del modelo final
 
 echo "--- Iniciando reentrenamiento del Ensemble V3 Final ---"

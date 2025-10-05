@@ -23,10 +23,10 @@ def test_predict_endpoint_success():
     assert response.status_code == 200
     data = response.json()
     
-    # Verificación de lógica de negocio (DDD): El planeta simulado debe ser habitable
+    # Verificación de lógica de implementacion: El planeta simulado debe ser habitable
     assert data["prediction"] in [0, 1]
     assert data["model_name"] == "Ensemble_v3_Final"
-    assert "is_potentially_habitable" in data # Verifica que la lógica DDD esté ahí
+    assert "is_potentially_habitable" in data
 
 def test_predict_endpoint_feature_mismatch():
     """Prueba que el endpoint falle correctamente si faltan features."""
@@ -43,6 +43,5 @@ def test_metrics_endpoint():
     assert response.status_code == 200
     data = response.json()
 
-    # Verifica la métrica crítica de la victoria (Usamos 0.9100 como umbral)
-    # El test falló porque el JSON tenía 0.8483 (antiguo)
-    assert data["accuracy"] >= 0.9100 # AHORA DEBERÍA SER 0.9120
+    # Verifica la métrica crítica alcanzada
+    assert data["accuracy"] >= 0.9100 

@@ -1,4 +1,3 @@
-# dashboard/index.py
 from dash import html
 from app import app
 from components import header, prediction_form, team_section
