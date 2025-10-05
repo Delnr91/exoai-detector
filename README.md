@@ -1,6 +1,6 @@
-# 🌌 ExoAI Detector - NASA Space Apps Challenge 2025
+# 🌌 ExoAI  - NASA Space Apps Challenge 2025
 
-**ExoAI Detector** es un sistema de Inteligencia Artificial de alto rendimiento diseñado para detectar exoplanetas a partir de los datos de las misiones de la NASA, logrando una precisión superior al 91%. El proyecto cuenta con una interfaz web interactiva construida con Dash que permite el análisis en tiempo real de candidatos a exoplanetas.
+**ExoAI ** es un sistema de Inteligencia Artificial de alto rendimiento diseñado para detectar exoplanetas a partir de los datos de las misiones de la NASA, logrando una precisión superior al 91%. El proyecto cuenta con una interfaz web interactiva construida con Dash que permite el análisis en tiempo real de candidatos a exoplanetas.
 
 ---
 
