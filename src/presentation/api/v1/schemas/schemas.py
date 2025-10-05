@@ -1,5 +1,3 @@
-# src/presentation/api/v1/schemas/schemas.py
-
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
@@ -12,8 +10,7 @@ class PredictRequest(BaseModel):
     """
     features: Dict[str, float] = Field(..., example={
         "koi_period": 85.5, "koi_impact": 0.146, "koi_duration": 4.5, 
-        "koi_depth": 874.8, "koi_prad": 2.26, "koi_model_snr": 25.8,
-        # ... y así sucesivamente para las 32 features
+        "koi_depth": 874.8, "koi_prad": 2.26, "koi_model_snr": 25.8
     })
 
 class PredictResponse(BaseModel):
@@ -24,7 +21,7 @@ class PredictResponse(BaseModel):
     confidence_score: float = Field(..., example=0.95)
     prediction_value: int = Field(..., example=1)
     model_version: str = Field("Ensemble_v3_Final", example="Ensemble_v3_Final")
-    is_potentially_habitable: bool = Field(False, example=False) # Lógica de dominio
+    is_potentially_habitable: bool = Field(False, example=False)
     
 # --- Modelos de Métricas y Explicabilidad ---
 

@@ -1,0 +1,61 @@
+/* web/dashboard/assets/custom.css */
+body { background-color: #0b0f19 !important; color: #e0e0e0; }
+#app-container { display: flex; }
+
+/* --- Sidebar y Contenido Principal (Sin Cambios) --- */
+#sidebar { width: 250px; background-color: #0d121f; padding: 20px; height: 100vh; position: fixed; top: 0; left: 0; box-shadow: 2px 0 5px rgba(0,0,0,0.2); }
+#page-content { margin-left: 250px; padding: 20px; width: calc(100% - 250px); }
+.sidebar-header { text-align: center; margin-bottom: 30px; }
+.sidebar-logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid #00e0ff; }
+.sidebar-title { color: #00e0ff; font-weight: bold; }
+.nav-link { color: #e0e0e0; border-radius: 5px; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { background-color: #1a2036; color: #00e0ff; }
+
+/* --- Tarjetas y Estilos Generales (Sin Cambios) --- */
+.card { background-color: #1a2036 !important; border: 1px solid #2d3748; }
+.member-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #00e0ff; margin-bottom: 15px; }
+.drag-area { border: 2px dashed #00e0ff; border-radius: 8px; padding: 40px; text-align: center; color: #00e0ff; cursor: pointer; transition: background-color 0.3s ease; }
+.drag-area:hover { background-color: #1a2036; }
+
+/* --- NUEVOS Y MEJORADOS ESTILOS --- */
+.vision-card {
+    background: linear-gradient(135deg, rgba(22, 43, 77, 0.5) 0%, rgba(13, 18, 31, 0.5) 100%);
+    border: 1px solid #00e0ff;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+}
+.vision-title { color: #00e0ff; }
+
+.result-summary-container {
+    padding: 2rem;
+    background-color: #1a2036;
+    border-radius: 10px;
+    border: 1px solid #00e0ff;
+    margin-top: 2rem;
+}
+.result-summary-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #2d3748;
+}
+.result-stat-card {
+    text-align: center;
+}
+.result-stat-card .icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+.result-stat-card .value {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.result-stat-card .label {
+    color: #a0aec0;
+    text-transform: uppercase;
+}
+.icon.confirmed { color: #00ff00; }
+.icon.false-positive { color: #ffc107; }
+.icon.total { color: #00e0ff; }
